@@ -1,5 +1,5 @@
 {
-  "name": "@aarontburn/module-builder",
+  "name": "module_builder",
   "version": "1.0.0",
   "description": "Reusable TypeScript settings and components",
   "main": "dist/index.js",

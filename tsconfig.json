@@ -9,6 +9,6 @@
     "strict": false,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["settings/**/*.ts", "*.ts", "index_temp.ts", "dist/index.d.ts"],
+  "include": ["settings/**/*.ts", "*.ts", "dist/index.d.ts"],
   "exclude": ["node_modules"]
 }
