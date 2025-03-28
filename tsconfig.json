@@ -8,7 +8,6 @@
     "noImplicitAny": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "rootDir": "./src"
   },
   "exclude": ["node_modules"]
 }
