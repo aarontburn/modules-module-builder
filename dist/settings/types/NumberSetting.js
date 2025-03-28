@@ -1,10 +1,25 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NumberSetting = void 0;
-const Setting_1 = require("../../Setting");
-const NumberSettingBox_1 = require("../ui_components/NumberSettingBox");
-const RangeSettingBox_1 = require("../ui_components/RangeSettingBox");
-const IncrementableNumberSettingBox_1 = require("../ui_components/IncrementableNumberSettingBox");
+var Setting_1 = require("../../Setting");
+var NumberSettingBox_1 = require("../ui_components/NumberSettingBox");
+var RangeSettingBox_1 = require("../ui_components/RangeSettingBox");
+var IncrementableNumberSettingBox_1 = require("../ui_components/IncrementableNumberSettingBox");
 /**
  *  Setting to receive number input.
  *
@@ -12,22 +27,25 @@ const IncrementableNumberSettingBox_1 = require("../ui_components/IncrementableN
  *
  *  @author aarontburn
  */
-class NumberSetting extends Setting_1.Setting {
-    /**
-     *  The minimum possible value. By default, it is unrestrained.
-     */
-    min = undefined;
-    /**
-     *  The maximum possible value. By default, it is unrestrained.
-     */
-    max = undefined;
-    step = 1;
-    useSlider = false;
-    withoutIncrement = false;
-    constructor(module, defer = false) {
-        super(module, defer);
+var NumberSetting = /** @class */ (function (_super) {
+    __extends(NumberSetting, _super);
+    function NumberSetting(module, defer) {
+        if (defer === void 0) { defer = false; }
+        var _this = _super.call(this, module, defer) || this;
+        /**
+         *  The minimum possible value. By default, it is unrestrained.
+         */
+        _this.min = undefined;
+        /**
+         *  The maximum possible value. By default, it is unrestrained.
+         */
+        _this.max = undefined;
+        _this.step = 1;
+        _this.useSlider = false;
+        _this.withoutIncrement = false;
+        return _this;
     }
-    useRangeSliderUI() {
+    NumberSetting.prototype.useRangeSliderUI = function () {
         this.withoutIncrement = false;
         this.useSlider = true;
         if (this.min === undefined) {
@@ -38,13 +56,13 @@ class NumberSetting extends Setting_1.Setting {
         }
         this.reInitUI();
         return this;
-    }
-    useNonIncrementableUI() {
+    };
+    NumberSetting.prototype.useNonIncrementableUI = function () {
         this.useSlider = false;
         this.withoutIncrement = true;
         this.reInitUI();
         return this;
-    }
+    };
     /**
      *  Sets a minimum value. If the user inputs a number less than
      *      the specified minimum, it will default to the minimum.
@@ -52,13 +70,13 @@ class NumberSetting extends Setting_1.Setting {
      *  @param min The lowest possible value for this setting.
      *  @returns itself.
      */
-    setMin(min) {
+    NumberSetting.prototype.setMin = function (min) {
         if (this.max !== undefined && min > this.max) {
-            throw new Error(`Attempted to set a greater min than max. Min: ${min} | Max: ${this.max}`);
+            throw new Error("Attempted to set a greater min than max. Min: ".concat(min, " | Max: ").concat(this.max));
         }
         this.min = min;
         return this;
-    }
+    };
     /**
      *  Sets a maximum value. If the user inputs a number greater than the
      *      specified maximum, it will default to the maximum.
@@ -66,13 +84,13 @@ class NumberSetting extends Setting_1.Setting {
      *  @param max The maximum possible value.
      *  @returns itself.
      */
-    setMax(max) {
+    NumberSetting.prototype.setMax = function (max) {
         if (this.min !== undefined && max < this.min) {
-            throw new Error(`Attempted to set a lower max than min. Min: ${this.min} | Max: ${max}`);
+            throw new Error("Attempted to set a lower max than min. Min: ".concat(this.min, " | Max: ").concat(max));
         }
         this.max = max;
         return this;
-    }
+    };
     /**
      *  Sets the minimum and maximum possible values. If the
      *      user enters a number outside of the bounds, it will
@@ -83,21 +101,21 @@ class NumberSetting extends Setting_1.Setting {
      *  @param max The maximum possible value.
      *  @returns itself.
      */
-    setRange(min, max) {
+    NumberSetting.prototype.setRange = function (min, max) {
         if (min > max) {
-            throw new Error(`Attempted to set a greater min than max. Min: ${min} | Max: ${max}`);
+            throw new Error("Attempted to set a greater min than max. Min: ".concat(min, " | Max: ").concat(max));
         }
         this.min = min;
         this.max = max;
         return this;
-    }
-    setStep(step) {
+    };
+    NumberSetting.prototype.setStep = function (step) {
         this.step = step;
         return this;
-    }
-    getStep() {
+    };
+    NumberSetting.prototype.getStep = function () {
         return this.step;
-    }
+    };
     /**
      *  Returns the range. If both the minimum and maximum are
      *      undefined, it will return undefined. Otherwise,
@@ -106,14 +124,14 @@ class NumberSetting extends Setting_1.Setting {
      *
      *  @returns An object with the specified minimum and maximum.
      */
-    getRange() {
+    NumberSetting.prototype.getRange = function () {
         if (this.min === undefined && this.max === undefined) {
             return undefined;
         }
         return { min: this.min, max: this.max };
-    }
-    validateInput(input) {
-        let value;
+    };
+    NumberSetting.prototype.validateInput = function (input) {
+        var value;
         if (input === 'increase') {
             value = this.getValue() + this.step;
         }
@@ -125,7 +143,7 @@ class NumberSetting extends Setting_1.Setting {
         }
         else {
             try {
-                const parsedValue = parseFloat(JSON.stringify(input).replace(/"/g, ''));
+                var parsedValue = parseFloat(JSON.stringify(input).replace(/"/g, ''));
                 if (!isNaN(parsedValue)) {
                     value = Number(parsedValue);
                 }
@@ -137,7 +155,7 @@ class NumberSetting extends Setting_1.Setting {
                 return null;
             }
         }
-        const roundedValue = (value) => Number(value.toFixed(1));
+        var roundedValue = function (value) { return Number(value.toFixed(1)); };
         if (this.min === undefined && this.max === undefined) {
             return roundedValue(value);
         }
@@ -148,8 +166,8 @@ class NumberSetting extends Setting_1.Setting {
             value = Math.min(this.max, value);
         }
         return roundedValue(value);
-    }
-    setUIComponent() {
+    };
+    NumberSetting.prototype.setUIComponent = function () {
         if (this.useSlider) {
             return new RangeSettingBox_1.RangeSettingBox(this);
         }
@@ -157,6 +175,7 @@ class NumberSetting extends Setting_1.Setting {
             return new NumberSettingBox_1.NumberSettingBox(this);
         }
         return new IncrementableNumberSettingBox_1.IncrementableNumberSettingBox(this);
-    }
-}
+    };
+    return NumberSetting;
+}(Setting_1.Setting));
 exports.NumberSetting = NumberSetting;

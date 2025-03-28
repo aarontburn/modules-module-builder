@@ -43,64 +43,47 @@ exports.SettingBox = void 0;
  *          @param value: The value to set the attribute to.
  *
  */
-class SettingBox {
-    resetID;
-    setting;
-    constructor(setting) {
+var SettingBox = /** @class */ (function () {
+    function SettingBox(setting) {
         this.setting = setting;
         this.resetID = 'reset-button_' + this.setting.getID();
     }
-    getUI() {
-        return `
-            <div class="setting">
-                ${this.createLeft()}
-                <div class="spacer"></div>
-                ${this.createRight()}
-            </div>
-        `;
-    }
+    SettingBox.prototype.getUI = function () {
+        return "\n            <div class=\"setting\">\n                ".concat(this.createLeft(), "\n                <div class=\"spacer\"></div>\n                ").concat(this.createRight(), "\n            </div>\n        ");
+    };
     /**
      * Creates the left element.
      *
      * @returns
      */
-    createLeft() {
-        return `
-            <div class="left-component" style="display: inline-block;">
-                <input id="${this.setting.getID()}" type="text" value='${this.setting.getValue()}'>
-            </div>
-        `;
-    }
+    SettingBox.prototype.createLeft = function () {
+        return "\n            <div class=\"left-component\" style=\"display: inline-block;\">\n                <input id=\"".concat(this.setting.getID(), "\" type=\"text\" value='").concat(this.setting.getValue(), "'>\n            </div>\n        ");
+    };
     /**
      *
      * @returns
      */
-    createRight() {
-        return `
-            <div class="right-component" style="display: inline-block;">
-                <h1><span id='${this.resetID}'>↩</span> ${this.setting.getName()}</h1>
-                <p>${this.setting.getDescription()}</p>
-            </div>
-        `;
-    }
+    SettingBox.prototype.createRight = function () {
+        return "\n            <div class=\"right-component\" style=\"display: inline-block;\">\n                <h1><span id='".concat(this.resetID, "'>\u21A9</span> ").concat(this.setting.getName(), "</h1>\n                <p>").concat(this.setting.getDescription(), "</p>\n            </div>\n        ");
+    };
     /**
      * Get the parent setting.
      * @returns The setting
      */
-    getSetting() {
+    SettingBox.prototype.getSetting = function () {
         return this.setting;
-    }
+    };
     /**
      * For all elements that can be interacted with, you must assign an ID, input type, and attribute to modify.
      *      - For example, a text input field would have an input type of "text" and attribute of "value".
      *
      * @returns An array of interactable elements
      */
-    getInputIdAndType() {
+    SettingBox.prototype.getInputIdAndType = function () {
         return [
             { id: this.setting.getID(), inputType: "text" }
         ];
-    }
+    };
     /**
      * When the parent setting is modified, this function is called.
      * Specify the ID of the element(s) to change, the attribute to modify, and the value.
@@ -108,18 +91,19 @@ class SettingBox {
      * @param newValue The new value of the setting
      * @returns An array of modified elements.
      */
-    onChange(newValue) {
+    SettingBox.prototype.onChange = function (newValue) {
         return [
             { id: this.setting.getID(), attribute: 'value', value: newValue }
         ];
-    }
+    };
     /**
      * Overridable method to add custom CSS to a setting component.
      *
      * @returns A valid CSS style string.
      */
-    getStyle() {
+    SettingBox.prototype.getStyle = function () {
         return '';
-    }
-}
+    };
+    return SettingBox;
+}());
 exports.SettingBox = SettingBox;

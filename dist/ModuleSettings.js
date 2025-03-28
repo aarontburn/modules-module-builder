@@ -6,17 +6,16 @@ exports.ModuleSettings = void 0;
  *
  *  @author aarontburn
  */
-class ModuleSettings {
-    settingsMap = new Map();
-    settingsDisplay = [];
-    parentModule;
-    settingsName;
-    constructor(module) {
+var ModuleSettings = /** @class */ (function () {
+    function ModuleSettings(module) {
+        var _this = this;
+        this.settingsMap = new Map();
+        this.settingsDisplay = [];
         this.parentModule = module;
         // Bind everything
-        Object.getOwnPropertyNames(ModuleSettings.prototype).forEach((key) => {
+        Object.getOwnPropertyNames(ModuleSettings.prototype).forEach(function (key) {
             if (key !== 'constructor') {
-                this[key] = this[key].bind(this);
+                _this[key] = _this[key].bind(_this);
             }
         });
     }
@@ -30,24 +29,24 @@ class ModuleSettings {
      *  @see setName
      *  @returns The name of the settings.
      */
-    getName() {
+    ModuleSettings.prototype.getName = function () {
         return this.settingsName === undefined
             ? this.parentModule.getName()
             : this.settingsName;
-    }
+    };
     /**
      *  @returns An array of all the settings.
      */
-    getSettings() {
+    ModuleSettings.prototype.getSettings = function () {
         return Array.from(new Set(this.settingsMap.values()));
-    }
+    };
     /**
      *  Get all display settings and headers.
      *  @returns An array of both settings and strings.
      */
-    getSettingsAndHeaders() {
+    ModuleSettings.prototype.getSettingsAndHeaders = function () {
         return this.settingsDisplay;
-    }
+    };
     /**
      *  Modify the name of the setting group.
      *
@@ -56,9 +55,9 @@ class ModuleSettings {
      *  @see getName
      *  @param name The name of the settings group.
      */
-    setName(name) {
+    ModuleSettings.prototype.setName = function (name) {
         this.settingsName = name;
-    }
+    };
     /**
      *  Adds a setting.
      *
@@ -66,38 +65,38 @@ class ModuleSettings {
      *
      *  @param setting The setting to add.
      */
-    _addSetting(s) {
+    ModuleSettings.prototype._addSetting = function (s) {
         this.settingsDisplay.push(s);
         if (typeof s === 'string') {
             return;
         }
-        const setting = s;
-        const settingID = setting.getAccessID();
-        const settingName = setting.getName();
+        var setting = s;
+        var settingID = setting.getAccessID();
+        var settingName = setting.getName();
         if (settingID === settingName) { // No ID was set, or they used the same ID as the setting name.
             this.settingsMap.set(settingID, setting);
             return;
         }
         this.settingsMap.set(settingID, setting);
         this.settingsMap.set(settingName, setting);
-    }
+    };
     /**
      *  Add multiple settings.
      *
      *  @param settings The settings to add.
      */
-    _addSettings(settings) {
+    ModuleSettings.prototype._addSettings = function (settings) {
         settings.forEach(this._addSetting);
-    }
+    };
     /**
      *  Add multiple internal settings.
      *
      *  @see                _addInternalSetting
      *  @param settings     An array of internal settings to add.
      */
-    _addInternalSettings(settings) {
+    ModuleSettings.prototype._addInternalSettings = function (settings) {
         settings.forEach(this._addInternalSetting);
-    }
+    };
     /**
      *  Adds an internal setting.
      *
@@ -106,30 +105,31 @@ class ModuleSettings {
      *
      *  @param setting  The internal setting to add.
      */
-    _addInternalSetting(setting) {
-        const settingID = setting.getAccessID();
-        const settingName = setting.getName();
+    ModuleSettings.prototype._addInternalSetting = function (setting) {
+        var settingID = setting.getAccessID();
+        var settingName = setting.getName();
         if (settingID === settingName) { // No ID was set, or they used the same ID as the setting name.
             this.settingsMap.set(settingID, setting);
             return;
         }
         this.settingsMap.set(settingID, setting);
         this.settingsMap.set(settingName, setting);
-    }
+    };
     /**
      *  Search for a setting by either name or ID.
      *
      *  @param nameOrID The name or ID of the setting
      *  @returns The setting, or undefined if not found.
      */
-    getSetting(nameOrID) {
+    ModuleSettings.prototype.getSetting = function (nameOrID) {
         return this.settingsMap.get(nameOrID);
-    }
+    };
     /**
      *  @returns A reference to the parent module.
      */
-    getModule() {
+    ModuleSettings.prototype.getModule = function () {
         return this.parentModule;
-    }
-}
+    };
+    return ModuleSettings;
+}());
 exports.ModuleSettings = ModuleSettings;
