@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "esnext",
+    "module": "commonjs",
+    "declaration": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["settings/**/*.ts", "*.ts", "index.ts"],
+  "exclude": ["node_modules"]
+}
